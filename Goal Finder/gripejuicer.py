@@ -5,7 +5,7 @@ import numpy as np
 
 class Reader(object):
 
-	path = "/media/pi/GRIPE/config.gripe"
+	path = "/media/ubuntu/GRIPE/config.gripe"
 
 
 	def __init__(self):

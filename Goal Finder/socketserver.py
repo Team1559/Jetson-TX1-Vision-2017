@@ -4,7 +4,7 @@ import sys
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = socket.gethostname()
-port = 15559
+port = 23
 #host = "10.15.59.6"
 x = 0
 y = 0

@@ -1,20 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import cv2
 import numpy as np
 import time
 import logging
 logging.basicConfig(level=logging.DEBUG)
-#import serialserver
+import server
 import sys
 import math
 import angle
-import distance
 import gripejuicer
-#import i2c
-#import timer
-import v4l2capture
-import select
 
 
 
@@ -64,10 +59,6 @@ cap = cv2.VideoCapture(1)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 cap.set(cv2.CAP_PROP_BRIGHTNESS, brightness)
-#cap = v4l2capture.Video_device("/dev/video1")
-#cap.create_buffers(30)
-#cap.queue_all_buffers()
-#cap.start()
 
 
 #create some variables
@@ -86,25 +77,14 @@ dist = 0.0
 ang = 0.0
 
 
-#start a timer for recording fps
-#fpscounter = timer.Timer()
-
-
-#open the serial server
-#serialserver.startServer()
-
-
-#open the i2c channel
-#i2c.startServer()
+#start the server
+server.startServer()
+server.putData(ang) #new
 
 
 while(1):
 
     #read the frames
-    #select.select((cap,), (), ())
-    #data = cap.read_and_queue()
-    #frame = cv2.imdecode(np.frombuffer(data, dtype=np.uint8), cv2.IMREAD_COLOR)
-
     _,frame = cap.read()
 
 
@@ -190,27 +170,8 @@ while(1):
 
 
 
-	#make sure there is an object before finding distance and angle
-    #if (cy > -1 and cx > -1):
-		#dist = distance.findDistance(cy)
-		#ang = angle.getAngle(dist, error)
-    #else:
-		#return -1 if no object is found
-		#ang = dist = -1
-
-    #dist = 1
-
-
     #give values to server
-    #serialserver.putData(ang)
-
-
-    #send the values over i2c
-    #i2c.putData(ang)
-
-
-    #count how many frames have been processed
-    #fpscounter.update()
+    server.putData(ang)
 
 
     #show the image based on user values
